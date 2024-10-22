@@ -1,0 +1,17 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "0.0.0.0:4318"
+
+exporters:
+  logging:
+    logLevel: {}
+  jaeger:
+    endpoint: "http://localhost:14250"  # gRPC endpoint for Jaeger
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [jaeger, logging]  # Send traces to Jaeger and log them
